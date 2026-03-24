@@ -1,0 +1,12 @@
+/* G E N E R A L
+* * * * * * * */
+
+/* .portfolio */
+
+.portfolio {
+    height: 100%;
+
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+}

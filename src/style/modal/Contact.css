@@ -1,0 +1,115 @@
+/* G E N E R A L
+* * * * * * * */
+
+/* .contact-banner */
+
+.contact-banner {
+    --button-background: var(--color-gray1);
+    --button-background-active: var(--color-gray1);
+
+    position: absolute;
+    top: 50%;
+    left: 48%;
+    transform: translate(-50%, -50%);
+}
+
+.contact-banner h1 {
+    font-family: Agatho;
+    font-weight: 700;
+    letter-spacing: -0.04em;
+    line-height: 1.1em;
+    text-align: center;
+
+    position: relative;
+    z-index: 1;
+}
+
+.contact-banner h1::before {
+    content: '';
+
+    background: linear-gradient(
+        90deg, 
+        rgba(255, 204, 17, 1) 50%, 
+        rgba(255, 204, 17, 0) 50%);
+    background-position-x: 100%;
+    background-repeat: no-repeat;
+    background-size: 200% 100%;
+    mask-image: url('/asset/image/brush/stroke06.png');
+    mask-position: center;
+    mask-repeat: no-repeat;
+    mask-size: 100% 100%;
+    width: 120%;
+    height: 70%;
+
+    position: absolute;
+    top: 55%;
+    left: -10%;
+    transform:
+        translateY(-50%)
+        rotate(-1deg)
+    ;
+    z-index: -1;
+
+    animation: scale-in 0.7s ease-in-out 0.5s forwards;
+}
+
+.contact-banner ul {
+    display: flex;
+    flex-direction: column;
+    gap: var(--button-big-menu-gap);
+}
+
+@keyframes scale-in {
+    from { background-position-x: 100%; }
+    to { background-position-x: 0%; }
+}
+
+/* D E S K T O P
+* * * * * * * */
+
+@media (min-width: 768px) {
+
+    /* .contact-banner */
+
+    .contact-banner {
+        width: 555px;
+    }
+
+    .contact-banner h1 {
+        font-size: 120px;
+    }
+
+    .contact-banner hr {
+        margin: 10px 0 15px;
+    }
+
+    .contact-banner ul {
+        margin: 20px 0 0;
+    }
+
+}
+
+/* M O B I L E
+* * * * * * */
+
+@media (max-width: 767px) {
+
+    /* .contact-banner */
+
+    .contact-banner {
+        width: 240px;
+    }
+
+    .contact-banner h1 {
+        font-size: 48px;
+    }
+
+    .contact-banner hr {
+        margin: 15px 0;
+    }
+
+    .contact-banner ul {
+        margin: 18px 0 0;
+    }
+
+}

@@ -1,0 +1,150 @@
+/* G E N E R A L
+* * * * * * * */
+
+/* __grid */
+
+ul.portfolio__grid li {
+    overflow: hidden;
+}
+
+ul.portfolio__grid li button {
+    width: 100%;
+    height: 100%;
+
+    position: relative;
+
+    overflow: hidden;
+}
+
+/* __grid-item-about */
+
+.portfolio__grid-item-about {
+    color: var(--color-gray5);
+
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1;
+
+    align-items: center;
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: center;
+}
+
+.portfolio__grid-item-about-split {
+    background: var(--color-gray5);
+    width: 1px;
+}
+
+.portfolio__grid-item-about-title {
+    font-family: 'Inter Tight', sans-serif;
+    font-weight: 700;
+    line-height: 1.1em;
+    text-align: right;
+
+    width: min-content;
+    max-width: 100%;
+
+    overflow-wrap: normal;
+}
+
+/* __grid-image */
+
+.portfolio__grid-item-image {
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    width: 100%;
+    height: 100%;
+
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+/* D E S K T O P
+* * * * * * * */
+
+@media (min-width: 768px) {
+
+    /* __grid */
+
+    ul.portfolio__grid {
+        padding: 20px;
+        width: 100%;
+
+        display: grid;
+        flex: 1;
+        gap: 20px;
+
+        overflow: hidden;
+    }
+
+    ul.portfolio__grid li button {
+        border-radius: 10px;
+    }
+
+    /* __grid-item-about */
+
+    .portfolio__grid-item-about {
+        gap: 10px;
+    }
+
+    .portfolio__grid-item-about svg {
+        max-width: 120px;
+        height: 35px;
+    }
+
+    .portfolio__grid-item-about-split {
+        height: 40px;
+    }
+
+    .portfolio__grid-item-about-title {
+        font-size: 24px;
+    }
+
+}
+
+/* M O B I L E
+* * * * * * */
+
+@media (max-width: 767px) {
+
+    /* __grid */
+
+    ul.portfolio__grid {
+        padding: 0 0 15px;
+        width: var(--app-width);
+
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+    }
+
+    ul.portfolio__grid li button {
+        border-radius: 5px;
+        height: 180px;
+    }
+
+    /* __grid-item-about */
+
+    .portfolio__grid-item-about {
+        gap: 10px;
+    }
+
+    .portfolio__grid-item-about svg {
+        max-width: 110px;
+        height: 35px;
+    }
+
+    .portfolio__grid-item-about-split {
+        height: 30px;
+    }
+
+    .portfolio__grid-item-about-title {
+        font-size: 22px;
+    }
+
+}

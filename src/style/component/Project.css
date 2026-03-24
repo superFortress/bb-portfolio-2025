@@ -1,0 +1,160 @@
+/* G E N E R A L
+* * * * * * * */
+
+/* .project */
+
+.project {
+    counter-reset: paragraph;
+}
+
+.project :is(h1, h2) {
+    font-family: 'Inter Tight', sans-serif;
+    font-weight: 700;
+}
+
+.project h3 {
+    font-weight: 700;
+}
+
+.project h3::before {
+    content: counter(paragraph) '. ';
+    counter-increment: paragraph;
+}
+
+.project > :is(aside, footer, header, section) {
+    position: relative;
+}
+
+.project > header {
+    padding-top: var(--project-header-padding-top);
+    padding-bottom: var(--project-header-padding-bottom);
+}
+
+.project > header .project__column {
+    gap: var(--project-header-gap);
+}
+
+.project > :is(aside, footer, section) {
+    padding-top: var(--project-section-padding-top);
+    padding-bottom: var(--project-section-padding-bottom);
+}
+
+.project > :is(aside, footer, section) hr {
+    opacity: var(--project-section-rule-opacity);
+}
+
+.project > :is(aside, footer, section) .project__column {
+    gap: var(--project-section-gap);
+}
+
+/* __column */
+
+.project__column {
+    width: var(--app-width);
+    margin: 0 auto;
+
+    display: flex;
+    flex-direction: column;
+}
+
+/* D E S K T O P
+* * * * * * * */
+
+@media (min-width: 768px) {
+
+    /* .project */
+
+    .project h1, h2 {
+        font-size: 64px;
+        line-height: 75px;
+
+        margin: -20px 0 -15px;
+    }
+
+    .project h3 {
+        font-size: 20px;
+        line-height: 35px;
+        
+        margin: -5px 0 0;
+    }
+
+    .project p {
+        margin: -15px 0 -10px;
+    }
+
+    .project > :is(footer, header, section) figure img {
+        border-radius: 3px;
+    }
+
+    .project > header h1 {
+        margin-bottom: 15px;
+    }
+
+    .project > :is(footer, section) :is(h2, p) {
+        padding-left: 205px;
+        width: calc(var(--main-width) - 205px);
+    }
+
+    .project > :is(footer, section) h3 {
+        height: 0;
+        width: 120px;
+
+        margin: -15px 0 -45px;
+        position: relative;
+    }
+
+    .project > :is(footer, section) h3::before {
+        text-align: right;
+
+        position: absolute;
+        right: calc(100% + 6px);
+    }
+
+    .project .carousel {
+        margin: 0 0 -25px;
+    }
+
+    .project .credits {
+        margin: 0 0 -15px;
+    }
+
+}
+
+/* M O B I L E
+* * * * * * */
+
+@media (max-width: 767px) {
+
+    /* .project */
+
+    .project :is(h1, h2) {
+        font-size: 32px;
+        line-height: 40px;
+
+        margin: -10px 0;
+    }
+
+    .project h3 {
+        font-size: 16px;
+        line-height: 25px;
+
+        margin: -6px 0 0;
+    }
+
+    .project p {
+        margin: -10px 0 -5px;
+    }
+
+    .project > :is(footer, header, section) figure img {
+        border-radius: 2px;
+    }
+
+    .project .carousel {
+        margin: 0 0 -15px;
+    }
+
+    .project .credits {
+        margin: -15px 0 -10px;
+    }
+
+}

@@ -1,0 +1,120 @@
+/* G E N E R A L
+* * * * * * * */
+
+/* Palette */
+
+:root {
+
+    --box-shadow0:
+        0 0 rgba(0, 0, 0, 0);
+    --box-shadow1:
+        0 0 2px 1px rgba(0, 0, 0, 0.07);
+    --box-shadow2:
+        0 0 rgba(0, 0, 0, 0);
+    --box-shadow3:
+        0 0 rgba(0, 0, 0, 0);
+
+    --color-white: #fff;
+    --color-gray1: #f4f3f2;
+    --color-gray2: #e1dfda;
+    --color-gray3: #c8c5c0;
+    --color-gray4: #656460;
+    --color-gray5: #222;
+    --color-black: #000;
+
+    --color-coral: #e54;
+    --color-coral-light: #fba;
+    --color-lemon: #fb1;
+    --color-lemon-light: #fd9;
+    --color-basil: #3a4;
+    --color-basil-light: #bda;
+    --color-azure: #49f;
+    --color-azure-light: #bdf;
+    --color-royal: #327;
+    --color-royal-light: #bad;
+    --color-grape: #75f;
+    --color-grape-light: #bbf;
+    --color-fairy: #f8c;
+    --color-fairy-light: #fce;
+
+}
+
+/* Applied */
+
+:root {
+
+    /* app */
+
+    --app-footer-text-color: var(--color-gray5);
+    --app-footer-text-opacity: 0.3;
+
+    --app-header-button-background: var(--color-white);
+    --app-header-button-background-active: var(--color-white);
+    --app-header-button-text-color: var(--color-gray5);
+    --app-header-button-text-color-active: var(--color-gray5);
+
+    /* button */
+
+    --button-background: var(--color-white);
+    --button-background-active: var(--color-white);
+    --button-text-color: var(--color-gray5);
+    --button-text-color-active: var(--color-gray5);
+
+    /* carousel */
+
+    --carousel-control-color: var(--color-gray5);
+    --carousel-control-color-active: var(--color-gray5);
+    --carousel-control-opacity: 0.2;
+    --carousel-control-opacity-active: 1;
+
+    /* credits */
+
+    --credits-color: var(--text-color);
+
+    /* image */
+
+    --image-border-radius: 2px;
+    --image-box-shadow: var(--box-shadow1);
+
+    /* logo */
+
+    --logo-color: var(--color-gray5);
+
+    /* modal */
+
+    --modal-background: var(--color-white);
+    --modal-button-background: var(--color-gray1);
+    --modal-button-text-color: var(--text-color);
+
+    /* page */
+
+    --page-background: var(--color-gray1);
+
+    /* project */
+
+    --project-section-rule-opacity: 0.15;
+
+    /* type */
+
+    --link-color: var(--color-coral);
+
+    --rule-color: var(--color-gray5);
+    --rule-opacity: 0.8;
+
+    --text-color: var(--color-gray5);
+
+    /* video */
+
+    --video-background: transparent;
+    --video-box-shadow: none;
+
+    --video-control-back-color: var(--color-black);
+    --video-control-back-opacity: 0.25;
+    --video-control-front-box-shadow: var(--box-shadow1);
+    --video-control-front-color: var(--color-white);
+
+    --video-overlay-dimmer-color: var(--color-black);
+    --video-overlay-dimmer-opacity: 0.2;
+    --video-overlay-shadow-color: var(--color-black);
+
+}

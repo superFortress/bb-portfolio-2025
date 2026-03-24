@@ -1,0 +1,34 @@
+/* G E N E R A L
+* * * * * * * */
+
+/* .gallery */
+
+ul.gallery {
+    display: grid;
+}
+
+/* D E S K T O P
+* * * * * * * */
+
+@media (min-width: 769px) {
+
+    /* .gallery */
+
+    ul.gallery {
+        gap: 20px;
+    }
+
+}
+
+/* M O B I L E
+* * * * * * */
+
+@media (max-width: 768px) {
+
+    /* .gallery */
+
+    ul.gallery {
+        gap: 15px;
+    }
+
+}

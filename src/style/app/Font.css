@@ -1,0 +1,9 @@
+/* G E N E R A L
+* * * * * * * */
+
+@font-face {
+    font-family: 'Agatho', sans-serif;
+    font-style: normal;
+    font-weight: 700;
+    src: url('/asset/font/Agatho_Bold.woff2') format('woff2');
+}
