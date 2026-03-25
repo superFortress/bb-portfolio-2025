@@ -2,8 +2,8 @@
 * * * * * * */
 
 // Function
-import mapDirectoryToObject from '../src/function/filesystem/mapDirectoryToObject.js';
-import objectToJS from '../src/function/parse/objectToJS.js';
+import mapDirectoryToObject from '../../src/function/filesystem/mapDirectoryToObject.js';
+import objectToJS from '../../src/function/parse/objectToJS.js';
 
 // Module
 import fs from 'fs';
