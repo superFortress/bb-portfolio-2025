@@ -55,8 +55,8 @@ const StyledButton = styled.button`
         gap: 3px;
 
         transition:
-            gap 0 0.9s,
-            opacity 0.7s 0.15s ease-in-out;
+            gap 0s 0.9s,
+            opacity 0.5s 0.15s ease-in;
     }
 
     &:hover .portfolio__grid-item-about {
