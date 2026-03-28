@@ -12,6 +12,11 @@ import { useAboutContext } from '../context/About';
 // Element
 import Logo from '../element/Logo';
 
+// Modal
+import Contact from '../modal/Contact';
+import Portfolio from '../modal/Portfolio';
+import Showreel from '../modal/Showreel';
+
 // Style
 // ... App
 import '../style/app/Button.css';
@@ -67,6 +72,12 @@ export default function App() {
         <Header />
         <Router />
         <Footer />
+
+        {/* Modal */}
+
+        <Contact />
+        <Portfolio />
+        <Showreel />
 
     </div>;
 

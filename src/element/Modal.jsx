@@ -8,6 +8,7 @@ import vector from '../asset/vector';
 import { useEffect, useState } from 'react';
 import ReactModal from 'react-modal';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { motion } from 'motion/react';
 
 // Assign
 ReactModal.setAppElement('#root');
@@ -20,44 +21,44 @@ export default function Modal(props) {
     // A S S I G N
 
     // State
-    const [open, setOpen] = useState(false);
     const [show, setShow] = useState(false);
 
     // Variable
-    const { hash = 'default', ...config } = props;
     const location = useLocation();
     const navigate = useNavigate();
 
+    // F U N C T I O N
+
+    const close = () => navigate(location.pathname, { replace: true });
+
     // E F F E C T
+
+    // Detect when modal opens
+    useEffect(() => {
+        setTimeout(() => setShow(true), 50);
+    }, []);
+
+    // Detect when modal closes
+    useEffect(() => {
+        if (!location.hash) setShow(false);
+    }, [location.hash]);
 
     // Disable scrolling on body
     useEffect(() => {
-        document.body.style.maxHeight = open ? '100vh' : '';
-        document.body.style.overflow = open ? 'hidden' : '';
-    }, [open]);
-
-    // Mount on route change
-    useEffect(() => {
-        if (location.hash === `#${hash}`) {
-            setOpen(true);
-            setTimeout(() => setShow(true), 10);
-        } else {
-            setTimeout(() => setOpen(false), 300);
-            setShow(false);
-        }
-    }, [location]);
-
-    // F U N C T I O N
-
-    const onClick = () => navigate(location.pathname, { replace: true });
+        const { overflow } = document.body.style;
+        document.body.style.overflow = 'hidden';
+        return () => {
+            document.body.style.overflow = overflow;
+        };
+    }, []);
 
     // R E T U R N
 
     return <ReactModal
         // Mounting
-        isOpen={open}
-        onClick={onClick}
-        onRequestClose={onClick}
+        isOpen={true}
+        onClick={close}
+        onRequestClose={close}
         // Styling
         className="modal-content"
         overlayClassName="modal-overlay"
@@ -65,21 +66,21 @@ export default function Modal(props) {
             overlay: {
                 opacity: show ? 1 : 0,
                 transition: show
-                    ? 'all 0.5s ease-out'
+                    ? 'all 0.4s ease-out'
                     : 'all 0.2s ease-out'
             }
         }}
     >
-        {<button
+        <button
             aria-label="Close modal"
             className="modal-content__button"
-            onClick={onClick}
+            onClick={close}
         >
             <vector.ui.close />
-        </button>}
-        <div {...config}>
+        </button>
+        <motion.div {...props}>
             {props.children}
-        </div>
+        </motion.div>
     </ReactModal>;
 
 }

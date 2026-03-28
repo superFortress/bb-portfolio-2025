@@ -9,9 +9,16 @@ import { useStyleContext } from '../context/Style';
 import routeArray from '../library/routeArray';
 
 // Module
-import { Suspense, useEffect, useMemo } from 'react';
+import { lazy, Suspense, useEffect, useMemo, useState } from 'react';
 import { AnimatePresence, motion } from 'motion/react';
 import { Routes, Route, useLocation } from 'react-router-dom';
+
+/* B U F F E R
+* * * * * * */
+
+const Contact = lazy(() => import('../modal/Contact'));
+const Portfolio = lazy(() => import('../modal/Portfolio'));
+const Showreel = lazy(() => import('../modal/Showreel'));
 
 /* S T A T I C
 * * * * * * */
@@ -33,6 +40,9 @@ export default function Router() {
     const { setAbout } = useAboutContext();
     const { setStyle } = useStyleContext();
 
+    // State
+    const [hash, setHash] = useState(false);
+
     // Variable
     const location = useLocation();
 
@@ -47,24 +57,45 @@ export default function Router() {
         window.scrollTo({ top: 0, behavior: 'smooth' });
     }, [location.pathname]);
 
+    // Update URL hash
+    useEffect(() => {
+        const hash = location.hash.substring(1);
+        if (hash) setHash(hash);
+        else setTimeout(() => setHash(hash), 300);
+    }, [location.hash]);
+
     // R E T U R N
 
-    return <AnimatePresence>
-        <Routes location={location} key={location.pathname}>
-            {useMemo(() => routeArray.map((entry) => (
-                <Route
-                    key={entry.route}
-                    path={entry.route}
-                    element={
-                        <motion.main>
-                            <Suspense fallback={null}>
-                                <entry.child about={entry.about} />
-                            </Suspense>
-                        </motion.main>
-                    }>
-                </Route>
-            )), [routeArray])}
-        </Routes>
-    </AnimatePresence>;
+    return <>
+
+        {/* Modals */}
+
+        <Suspense fallback={null}>
+            {hash === 'contact' && <Contact />}
+            {hash === 'portfolio' && <Portfolio />}
+            {hash === 'showreel' && <Showreel />}
+        </Suspense>
+
+        {/* Routes */}
+
+        <AnimatePresence>
+            <Routes location={location} key={location.pathname}>
+                {useMemo(() => routeArray.map((entry) => (
+                    <Route
+                        key={entry.route}
+                        path={entry.route}
+                        element={
+                            <motion.main>
+                                <Suspense fallback={null}>
+                                    <entry.child about={entry.about} />
+                                </Suspense>
+                            </motion.main>
+                        }>
+                    </Route>
+                )), [routeArray])}
+            </Routes>
+        </AnimatePresence>
+
+    </>;
 
 }
