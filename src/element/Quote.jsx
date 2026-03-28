@@ -14,7 +14,7 @@ export default function Quote(props) {
 
     return <figure className="quote" style={{ color }}>
         <blockquote>
-            &ldquo;&#8201;{caption}&#8201;&rdquo;
+            &ldquo;&#8202;{caption}&#8202;&rdquo;
         </blockquote>
         {author && <figcaption>
             &mdash; {author}

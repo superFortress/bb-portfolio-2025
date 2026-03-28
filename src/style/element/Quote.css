@@ -10,9 +10,9 @@ figure.quote {
 }
 
 figure.quote blockquote {
-    font-family: "Source Serif 4", serif;
+    font-family: 'Crimson Pro', serif;
     font-style: normal;
-    font-weight: 450;
+    font-weight: 400;
 }
 
 figure.quote blockquote b {

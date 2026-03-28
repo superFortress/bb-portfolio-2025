@@ -35,7 +35,7 @@ export default function Service() {
         </header>
         <div className="home-service__main">
             <section className="home-service__item">
-                <h2>1. Write the first draft</h2>
+                <h2>Write the first draft</h2>
                 <p>Let&rsquo;s talk about you! To craft an authentic story we need to hear from the people behind the brand. Together, we write a draft.</p>
                 <vector.icon.draft style={{
                     transform: 'translate(-50%, -50%) rotate(9deg)',
@@ -44,7 +44,7 @@ export default function Service() {
                 }} />
             </section>
             <section className="home-service__item">
-                <h2>2. Build the storyline</h2>
+                <h2>Build the storyline</h2>
                 <p>We combine our ideas and create a clear message from beginning to end. This is where we decide the look and feel.</p>
                 <vector.icon.board style={{
                     transform: 'translate(-50%, -50%) rotate(7deg)',
@@ -53,7 +53,7 @@ export default function Service() {
                 }} />
             </section>
             <section className="home-service__item">
-                <h2>3. Put everything in place</h2>
+                <h2>Put everything in place</h2>
                 <p>Here I&rsquo;ll take over and bring the design and story elements to life. You will be kept in the loop, every step of the way.</p>
                 <vector.icon.design style={{
                     transform: 'translate(-50%, -50%) rotate(0deg)',
@@ -62,7 +62,7 @@ export default function Service() {
                 }} />
             </section>
             <section className="home-service__item">
-                <h2>4. Optimize and automate</h2>
+                <h2>Optimize and automate</h2>
                 <p>Large projects, like online campaigns, require quick edits and fast turnarounds. With a bit of computer magic we make that happen.</p>
                 <vector.icon.code style={{
                     transform: 'translate(-50%, -50%) rotate(17deg)',
@@ -71,7 +71,7 @@ export default function Service() {
                 }} />
             </section>
             <section className="home-service__item">
-                <h2>5. Let&rsquo;s publish</h2>
+                <h2>Let&rsquo;s publish</h2>
                 <p>Whether it&rsquo;s online, on TV, or in print &mdash; I make sure the colors are bright, the image is sharp, and that every “i” gets dotted.</p>
                 <vector.icon.media style={{
                     transform: 'translate(-50%, -50%) rotate(-15deg)',

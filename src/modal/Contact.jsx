@@ -28,7 +28,7 @@ export default function Contact() {
 
     return <Modal className="contact" hash="contact">
         <div className="contact-banner">
-            <h1>Love to talk.</h1>
+            <h1>Love to talk</h1>
             <hr />
             {client.onDesktop && <p>It all starts with a conversation. Let's hear your ideas and set course together. You can reach me through mail or by phone. Look forward to hearing from you!</p>}
             {client.onMobile && <p>It all starts with a conversation. Let's hear your ideas and set course together. Look forward to hearing from you!</p>}

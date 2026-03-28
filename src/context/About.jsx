@@ -30,7 +30,7 @@ export const AboutProvider = (props) => {
         author: 'Boriz Baatsen',
         tagline: 'Website proudly designed and built by me.',
         title: 'Home',
-        version: 'v1.0',
+        version: 'v1.1',
         year: new Date().getFullYear()
     };
 

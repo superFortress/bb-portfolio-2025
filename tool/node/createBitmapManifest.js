@@ -16,8 +16,8 @@ import { fileURLToPath } from 'url';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-const inputDirectory = path.join(__dirname, '../public/asset');
-const outputDirectory = path.join(__dirname, '../src/asset');
+const inputDirectory = path.join(__dirname, '../../public/asset');
+const outputDirectory = path.join(__dirname, '../../src/asset');
 
 /* R E T U R N
 * * * * * * */
