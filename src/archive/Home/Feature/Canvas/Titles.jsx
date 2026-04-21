@@ -14,8 +14,6 @@ export default function Titles({
     titleBodyMapRef = null,
     titleElemMap = new Map(),
     // Geometry
-    bannerFrame = {},
-    bannerPoint = {},
     client = {},
     // Matter
     engine = null
@@ -31,25 +29,17 @@ export default function Titles({
 
     // F U N C T I O N
 
-    const createBodies = () => titleElemMap.forEach((title) => {
-
-        // Properties
-        const banner = { ...bannerFrame, ...bannerPoint };
-        const body = {};
-        body.width = (title.width / 100) * banner.width;
-        body.height = (title.height / 100) * banner.height;
-        body.x = banner.x + (title.x / 100) * banner.width;
-        body.y = banner.y + (title.y / 100) * banner.height;
+    const createBodies = () => titleElemMap.forEach((body, key) => {
 
         // Create figure
-        const prevFigure = figureMapRef.current.get(title.key);
+        const prevFigure = figureMapRef.current.get(key);
         const figure = (() => {
 
             // Properties
-            const { width, height, x, y } = body;
-            const angle = prevFigure?.angle || title.angle * (Math.PI / 180);
+            const { x, y, width, height } = body;
+            const angle = prevFigure?.angle || body.angle * (Math.PI / 180);
             const color = prevFigure?.color || 'var(--color-gray5)';
-            const group = title.group || 0x1;
+            const group = body.group || 0x1;
             const velocity = prevFigure?.velocity || { x: 0, y: 0 };
 
             // Create figure
@@ -57,7 +47,7 @@ export default function Titles({
                 x, y, width, height, {
                 // Geometry
                 color: color,
-                key: title.key,
+                key: key,
                 label: 'title',
                 width: width,
                 height: height,
@@ -75,7 +65,6 @@ export default function Titles({
                     visible: false
                 },
             });
-
         })();
 
         // Create anchors
@@ -114,30 +103,29 @@ export default function Titles({
 
         // Remove bodies
         // ... Remove from matter
-        const figures = figureMapRef.current.get(title.key) || [];
-        const anchors = anchorMapRef.current.get(title.key) || [];
-        const tethers = tetherMapRef.current.get(title.key) || [];
+        const figures = figureMapRef.current.get(key) || [];
+        const anchors = anchorMapRef.current.get(key) || [];
+        const tethers = tetherMapRef.current.get(key) || [];
         Composite.remove(engine.world, [anchors, figures, tethers].flat());
-        // ... Remove from Map
-        figureMapRef.current.delete(title.key);
-        anchorMapRef.current.delete(title.key);
-        tetherMapRef.current.delete(title.key);
+        // ... Delete from Map
+        figureMapRef.current.delete(key);
+        anchorMapRef.current.delete(key);
+        tetherMapRef.current.delete(key);
 
         // Employ bodies
         const bodies = [figure, anchorLeft, anchorRight, tetherLeft, tetherRight];
         World.add(engine.world, bodies);
-        figureMapRef.current.set(title.key, figure);
-        anchorMapRef.current.set(title.key, [anchorLeft, anchorRight]);
-        tetherMapRef.current.set(title.key, [tetherLeft, tetherRight]);
+        figureMapRef.current.set(key, figure);
+        anchorMapRef.current.set(key, [anchorLeft, anchorRight]);
+        tetherMapRef.current.set(key, [tetherLeft, tetherRight]);
 
-    })
+    });
 
     // E F F E C T
 
     useEffect(() => {
-        if (bannerFrame.width === 0 || bannerPoint === 0) return;
         if (titleElemMap.size === 0) return;
         createBodies();
-    }, [bannerFrame, bannerPoint, titleElemMap]);
+    }, [titleElemMap]);
 
 }

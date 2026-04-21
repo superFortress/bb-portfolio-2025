@@ -12,8 +12,9 @@ export default function Container({
 
     // Geometry
     bannerFrame = {},
-    bannerPoint = {},
-    canvasFrame = {},
+    cameraFrame = {},
+    cameraPoint = {},
+    canvasPoint = {},
     client = {},
     // Matter
     engine = null
@@ -31,22 +32,22 @@ export default function Container({
 
         // Configuration
         const bodyWidth = 20;
-        const dividerWidth = 10;
 
         // Properties
-        const banner = { ...bannerFrame, ...bannerPoint };
-        const canvas = { ...canvasFrame };
+        const banner = { ...bannerFrame };
+        const camera = { ...cameraFrame, ...cameraPoint };
+        const canvas = { ...canvasPoint };
 
-        // Create divider
         const divider = (() => {
             // Properties
             const width = banner.width;
-            const height = dividerWidth;
-            const x = banner.x
-                + banner.width / 2;
-            const y = banner.y
-                + banner.height
-                + (client.onDesktop ? 40 : 20);
+            const height = 10;
+            const x = canvas.x
+                + camera.x;     // add camera offset
+            const y = canvas.y
+                + banner.height / 2
+                + (client.onDesktop ? 40 : 20)
+                + camera.y;     // add camera offset
             // Create
             return Bodies.rectangle(
                 x, y, width, height, {
@@ -65,11 +66,13 @@ export default function Container({
         // Create floor
         const floor = (() => {
             // Properties
-            const width = canvas.width * 1.5;
+            const width = camera.width * 2;
             const height = bodyWidth;
-            const x = canvas.width / 2;
-            const y = canvas.height
-                + bodyWidth / 2;
+            const x = camera.width / 2
+                + camera.x;     // add camera offset
+            const y = camera.height
+                + height / 2
+                + camera.y;     // add camera offset
             // Create
             return Bodies.rectangle(
                 x, y, width, height, {
@@ -89,11 +92,13 @@ export default function Container({
         const [wallLeft, wallRight] = [1, 0].map((left) => {
             // Properties
             const width = bodyWidth;
-            const height = canvas.height;
-            const x = client.onDesktop
-                ? canvas.width * (left ? -0.1 : 1.1)
-                : canvas.width * (left ? -0.25 : 1.25);
-            const y = canvas.height / 2;
+            const height = camera.height;
+            const x = (client.onDesktop
+                ? camera.width * (left ? -0.1 : 1.1)
+                : camera.width * (left ? -0.25 : 1.25)
+            ) + camera.x;       // add camera offset
+            const y = camera.height / 2
+                + camera.y;     // add camera offset
             // Create
             return Bodies.rectangle(
                 x, y, width, height, {
@@ -122,6 +127,6 @@ export default function Container({
     // Create new container
     useEffect(() => {
         createBodies();
-    }, [bannerFrame, bannerPoint, canvasFrame, client]);
+    }, [bannerFrame, cameraFrame, cameraPoint, canvasPoint, client]);
 
 }

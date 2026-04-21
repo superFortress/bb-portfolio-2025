@@ -25,5 +25,6 @@ dist-ssr
 *.sw?
 
 # Media files
-public/asset
-public/meta.jpg
+/public/asset
+/public/meta.jpg
+/tool/

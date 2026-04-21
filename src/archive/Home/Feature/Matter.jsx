@@ -6,18 +6,21 @@ import image from '../../../asset/image';
 import vector from '../../../asset/vector';
 
 // Component
+// ... Canvas
 import CanvasCollision from './Canvas/Collision';
 import CanvasContainer from './Canvas/Container';
 import CanvasShapes from './Canvas/Shapes';
 import CanvasTitles from './Canvas/Titles';
+// ... Render
 import RenderShapes from './Render/Shapes';
 import RenderTitles from './Render/Titles';
 
 // Function
+import useClient from '../../../function/hook/useClient';
 import useMatter from '../../../function/hook/useMatter';
 
 // Module
-import { createRef, useMemo, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 /* E X P O R T
 * * * * * * */
@@ -29,9 +32,11 @@ export default function Matter({
     titleArray = [],
     // Geometry
     bannerFrame = {},
-    bannerPoint = {},
+    bannerScale = 0,
+    cameraFrame = {},
+    cameraPoint = {},
     canvasFrame = {},
-    client = {}
+    canvasPoint = {}
 
 }) {
 
@@ -43,27 +48,49 @@ export default function Matter({
     const titleBodyMapRef = useRef(new Map());
 
     // State
+    const client = useClient(null, 50);
     const { engine, useUpdate } = useMatter(canvasRef, canvasFrame);
+    const [titleElemMap, setTitleElemMap] = useState(new Map());
 
-    // D E F I N E
+    // E F F E C T
 
-    // Configure title elements
-    const titleElemMap = useMemo(() => {
+    // Update title geometry
+    useEffect(() => {
+        if (!bannerScale) return;
+        const canvas = { ...canvasFrame };
+        const center = { x: canvas.width / 2, y: canvas.height / 2 };
         const map = new Map();
-        titleArray.map((title, index) => {
+        titleArray.forEach((title, index) => {
             const key = `${title.key}${index}`;
-            const ref = createRef();
-            const src = image.home[`titleLetter${title.key}`];
-            const width = title.width / 680 * 100;
-            const height = title.height / 330 * 100;
-            map.set(key, { ...title, key, ref, src, width, height });
+            map.set(key, {
+                angle: title.angle,
+                group: title.group,
+                image: image.home[`titleLetter${title.key}`],
+                x: center.x + title.x * bannerScale,
+                y: center.y + title.y * bannerScale,
+                width: title.width * bannerScale,
+                height: title.height * bannerScale
+            });
         });
-        return map;
-    }, [titleArray]);
+        setTitleElemMap(map);
+    }, [bannerScale, canvasFrame, titleArray]);
 
     // R E T U R N
 
-    return <>
+    return <div style={{
+        width: `${canvasFrame.width}px`,
+        height: `${canvasFrame.height}px`,
+
+        position: 'absolute',
+        left: '50%',
+        transform: ''
+            + 'translate(-50%, -50%)'
+            + `translateY(${canvasPoint.y}px)`,
+        zIndex: 1,
+
+        pointerEvents: 'none',
+        userSelect: 'none'
+    }}>
 
         {/* Canvas */}
 
@@ -84,8 +111,9 @@ export default function Matter({
         <CanvasContainer
             // Geometry
             bannerFrame={bannerFrame}
-            bannerPoint={bannerPoint}
-            canvasFrame={canvasFrame}
+            cameraFrame={cameraFrame}
+            cameraPoint={cameraPoint}
+            canvasPoint={canvasPoint}
             client={client}
             // Matter
             engine={engine}
@@ -97,7 +125,8 @@ export default function Matter({
             imageArray={Object.values(vector.shape)}
             shapeBodyMapRef={shapeBodyMapRef}
             // Geometry
-            canvasFrame={canvasFrame}
+            cameraFrame={cameraFrame}
+            cameraPoint={cameraPoint}
             client={client}
             // Matter
             engine={engine}
@@ -108,8 +137,6 @@ export default function Matter({
             titleBodyMapRef={titleBodyMapRef}
             titleElemMap={titleElemMap}
             // Geometry
-            bannerFrame={bannerFrame}
-            bannerPoint={bannerPoint}
             client={client}
             // Matter
             engine={engine}
@@ -131,13 +158,11 @@ export default function Matter({
             titleBodyMapRef={titleBodyMapRef}
             titleElemMap={titleElemMap}
             // Geometry
-            bannerFrame={bannerFrame}
-            bannerPoint={bannerPoint}
             zIndex={1}
             // Matter
             useUpdate={useUpdate}
         />
 
-    </>;
+    </div>;
 
 }

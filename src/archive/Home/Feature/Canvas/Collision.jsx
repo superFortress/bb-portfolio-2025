@@ -12,14 +12,14 @@ import { useEffect } from 'react';
 * * * * * * */
 
 export default function Collision({
-
+    
     // Element
     colorArray = [],
     // Matter
     engine = null
 
 }) {
-
+    
     // F U N C T I O N
 
     const manageCollision = (event) => event.pairs.forEach((pair) => {

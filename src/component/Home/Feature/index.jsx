@@ -5,18 +5,17 @@
 import image from '../../../asset/image';
 import vector from '../../../asset/vector';
 
-// Component
+// Element
 import Matter from './Matter';
 
 // Function
-import getOffset from '../../../function/scale/getOffset';
 import useClient from '../../../function/hook/useClient';
 import useLayoutObserver from '../../../function/hook/useLayoutObserver';
 
 // Module
-import { useEffect, useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 
-/* A S S I G N
+/* S T A T I C
 * * * * * * */
 
 const colorArray = [
@@ -29,26 +28,26 @@ const colorArray = [
 ];
 
 const titleArray = [
-    { key: 'P', group: 0x2, angle: 0, x: -300, y: -93.5, width: 80, height: 101 },
-    { key: 'U', group: 0x2, angle: 0, x: -218, y: -78, width: 73, height: 72 },
-    { key: 'T', group: 0x2, angle: 0, x: -158.5, y: -88, width: 39, height: 91 },
-    { key: 'Y', group: 0x2, angle: 18, x: -72, y: -104, width: 72, height: 104 },
-    { key: 'O', group: 0x2, angle: 18, x: -4, y: -99.5, width: 66, height: 73 },
-    { key: 'U', group: 0x2, angle: 18, x: 65, y: -77, width: 73, height: 72 },
-    { key: 'R', group: 0x2, angle: 18, x: 131.5, y: -56, width: 55, height: 72 },
-    { key: 'S', group: 0x4, angle: -14, x: -293, y: 53.5, width: 57, height: 72 },
-    { key: 'T', group: 0x4, angle: -14, x: -245, y: 32.5, width: 39, height: 91 },
-    { key: 'O', group: 0x4, angle: -14, x: -190, y: 28, width: 66, height: 73 },
-    { key: 'R', group: 0x4, angle: -14, x: -127, y: 12.5, width: 55, height: 72 },
-    { key: 'Y', group: 0x4, angle: -14, x: -57, y: 12, width: 72, height: 104 },
-    { key: 'I', group: 0x4, angle: 0, x: 5, y: 16.25, width: 32, height: 97 },
-    { key: 'N', group: 0x4, angle: 0, x: 62.5, y: 29, width: 73, height: 72 },
-    { key: 'M', group: 0x8, angle: 0, x: -14.5, y: 129, width: 115, height: 72 },
-    { key: 'O', group: 0x8, angle: 0, x: 80, y: 129, width: 66, height: 73 },
-    { key: 'T', group: 0x8, angle: 0, x: 134.5, y: 120, width: 39, height: 91 },
-    { key: 'I', group: 0x8, angle: 0, x: 177, y: 115.5, width: 32, height: 97 },
-    { key: 'O', group: 0x8, angle: 0, x: 230, y: 129, width: 66, height: 73 },
-    { key: 'N', group: 0x8, angle: 0, x: 304, y: 128.5, width: 73, height: 72 }
+    { key: 'P', group: 0x2, angle: 0, x: 5.9, y: 21.6, width: 80, height: 101 },
+    { key: 'U', group: 0x2, angle: 0, x: 18, y: 26.4, width: 73, height: 72 },
+    { key: 'T', group: 0x2, angle: 0, x: 26.7, y: 23.3, width: 39, height: 91 },
+    { key: 'Y', group: 0x2, angle: 18, x: 39.4, y: 18.3, width: 72, height: 104 },
+    { key: 'O', group: 0x2, angle: 18, x: 49.4, y: 19.7, width: 66, height: 73 },
+    { key: 'U', group: 0x2, angle: 18, x: 59.5, y: 26.7, width: 73, height: 72 },
+    { key: 'R', group: 0x2, angle: 18, x: 69.3, y: 33, width: 55, height: 72 },
+    { key: 'S', group: 0x4, angle: -14, x: 7, y: 66.1, width: 57, height: 72 },
+    { key: 'T', group: 0x4, angle: -14, x: 14, y: 59.8, width: 39, height: 91 },
+    { key: 'O', group: 0x4, angle: -14, x: 22.1, y: 58.5, width: 66, height: 73 },
+    { key: 'R', group: 0x4, angle: -14, x: 31.3, y: 53.6, width: 55, height: 72 },
+    { key: 'Y', group: 0x4, angle: -14, x: 41.6, y: 53.5, width: 72, height: 104 },
+    { key: 'I', group: 0x4, angle: 0, x: 50.7, y: 54.8, width: 32, height: 97 },
+    { key: 'N', group: 0x4, angle: 0, x: 59.2, y: 58.7, width: 73, height: 72 },
+    { key: 'M', group: 0x8, angle: 0, x: 47.9, y: 88.8, width: 115, height: 72 },
+    { key: 'O', group: 0x8, angle: 0, x: 61.8, y: 89, width: 66, height: 73 },
+    { key: 'T', group: 0x8, angle: 0, x: 69.8, y: 86.3, width: 39, height: 91 },
+    { key: 'I', group: 0x8, angle: 0, x: 76, y: 84.9, width: 32, height: 97 },
+    { key: 'O', group: 0x8, angle: 0, x: 83.8, y: 89, width: 66, height: 73 },
+    { key: 'N', group: 0x8, angle: 0, x: 94.6, y: 88.8, width: 73, height: 72 }
 ];
 
 /* E X P O R T
@@ -64,56 +63,29 @@ export default function Feature() {
 
     // State
     const [bannerFrame, setBannerFrame] = useState({ width: 0, height: 0 });
-    const [bannerScale, setBannerScale] = useState(0);
-    const [cameraFrame, setCameraFrame] = useState({ width: 0, height: 0 });
-    const [cameraPoint, setCameraPoint] = useState({ x: 0, y: 0 });
-    const [canvasFrame] = useState({ width: 3840, height: 2160 });
-    const [canvasPoint, setCanvasPoint] = useState({ x: 0, y: 0 });
+    const [bannerPoint, setBannerPoint] = useState({ x: 0, y: 0 });
+    const [canvasFrame, setCanvasFrame] = useState({ width: 0, height: 0 });
 
     // E F F E C T
 
     // Observe banner
     useLayoutObserver(bannerRef, (_, banner) => {
-
-        // Banner width is based off 68:33 aspect ratio
-        const bannerHeight = banner.width * (330 / 680);
-        setBannerFrame({ width: banner.width, height: bannerHeight });
-
-        // Banner scale is relative to 680px width
-        const bannerScale = banner.width / 680;
-        setBannerScale(bannerScale);
-
-        // Canvas gets center from banner
-        const parent = getOffset(parentRef);
-        const bannerX = parent.width / 2;
-        const bannerY = banner.y - (banner.height / 2) + (bannerHeight / 2);
-        setCanvasPoint({ x: bannerX, y: bannerY });
-
+        const { width } = banner;
+        const height = width * (33 / 68);
+        const x = banner.x - banner.width / 2;
+        const y = banner.y - banner.height / 2;
+        setBannerFrame({ width, height });
+        setBannerPoint({ x, y });
     }, 50);
 
-    // Observe camera and canvas
-    useEffect(() => {
-
-        // Camera position is relative to canvas and parent
-        const camera = { ...cameraFrame };
-        const canvas = { ...canvasFrame, ...canvasPoint };
-        const cameraX = (canvas.width / 2) - (camera.width / 2);
-        const cameraY = (canvas.height / 2) - (camera.height / 2)
-            + (camera.height / 2) - canvas.y;
-        setCameraPoint({ x: cameraX, y: cameraY });
-
-    }, [cameraFrame, canvasPoint]);
+    // Observe canvas
+    useLayoutObserver(parentRef, (_, parent) => {
+        const { width, height } = parent;
+        setCanvasFrame({ width, height });
+    }, 50);
 
     // Observe viewport
-    const client = useClient(() => {
-
-        // Camera gets width and height from parent
-        const parent = getOffset(parentRef);
-        const cameraWidth = parent.width;
-        const cameraHeight = parent.height;
-        setCameraFrame({ width: cameraWidth, height: cameraHeight });
-
-    }, 50);
+    const client = useClient(null, 50);
 
     // R E T U R N
 
@@ -125,30 +97,27 @@ export default function Feature() {
             <div className="home-feature__banner-head">
                 <img src={image.home.title} />
             </div>
+            <div className="rule" />
             <div className="home-feature__banner-info">
                 {client.onDesktop && <p>Hi, my name is Boriz. I'm a <span>creative producer</span> who lives and works near Amsterdam. Nice to meet you!</p>}
                 {client.onMobile && <p>I'm Boriz, a <span>creative producer</span> from Amsterdam. Nice to meet you!</p>}
             </div>
-            <ul className="home-feature__banner-menu">
-                <li>
-                    <a
-                        className="button--big"
-                        href="#showreel"
-                    >
-                        <vector.icon.star />
-                        <span>Showreel</span>
-                    </a>
-                </li>
-                <li>
-                    <a
-                        className="button--big"
-                        href="#home-service"
-                    >
-                        <vector.icon.shapes />
-                        <span>Services</span>
-                    </a>
-                </li>
-            </ul>
+            <div className="home-feature__banner-menu">
+                <ul>
+                    <li>
+                        <a className="button--big" href="#showreel">
+                            <vector.icon.star />
+                            <span>Showreel</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a className="button--big" href="#home-service">
+                            <vector.icon.shapes />
+                            <span>Services</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
         </div>
 
         {/* Matter */}
@@ -159,11 +128,9 @@ export default function Feature() {
             titleArray={titleArray}
             // Geometry
             bannerFrame={bannerFrame}
-            bannerScale={bannerScale}
-            cameraFrame={cameraFrame}
-            cameraPoint={cameraPoint}
+            bannerPoint={bannerPoint}
             canvasFrame={canvasFrame}
-            canvasPoint={canvasPoint}
+            client={client}
         />
 
     </div>;

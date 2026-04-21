@@ -2,7 +2,7 @@
 * * * * * * */
 
 // Module
-import { useRef, useState } from 'react';
+import { createRef, useState } from 'react';
 
 /* E X P O R T
 * * * * * * */
@@ -14,48 +14,45 @@ export default function Shapes({
     // Geometry
     zIndex = 0,
     // Matter
-    useUpdate = () => { }
+    useUpdate = null
 
 }) {
 
     // A S S I G N
 
-    // Reference
-    const shapeElemMapRef = useRef(new Map());
-    const renderRef = useRef(null);
-
     // State
-    const [keyArray, setKeyArray] = useState([]);
+    const [shapeElemMap, setShapeElemMap] = useState(new Map());
 
     // U P D A T E
 
-    // Update keys
+    // Update element Map
     useUpdate(() => {
-        const bodyKeys = [...shapeBodyMapRef.current.keys()];
-        const elemKeys = [...shapeElemMapRef.current.keys()];
-        // Check if bodies were added or removed
+        const bodyKeys = [...shapeBodyMapRef.current?.keys() || []];
+        const elemKeys = [...shapeElemMap.keys()];
         const addedKeys = bodyKeys.filter((key) => !elemKeys.includes(key));
         const removedKeys = elemKeys.filter((key) => !bodyKeys.includes(key));
-        // ... If not, ignore current update
         if (!addedKeys.length && !removedKeys.length) return;
-        // ... If yes, update keys
-        setKeyArray(bodyKeys);
+        setShapeElemMap((lastMap) => {
+            const nextMap = new Map(lastMap);
+            removedKeys.forEach((key) => nextMap.delete(key));
+            addedKeys.forEach((key) => {
+                const shape = shapeBodyMapRef.current?.get(key);
+                if (shape) nextMap.set(key, { ...shape, ref: createRef() });
+            });
+            return nextMap;
+        });
     });
 
-    // Update elements in map
-    useUpdate(() => keyArray.forEach((key) => {
-        const body = shapeBodyMapRef.current.get(key);
-        const elem = shapeElemMapRef.current.get(key);
+    // Update element properties
+    useUpdate(() => shapeElemMap.keys().forEach((key) => {
+        const body = shapeBodyMapRef.current?.get(key);
+        const elem = shapeElemMap.get(key).ref.current;
         if (!body || !elem) return;
-        const { angle, color, position, width, height } = body;
-        const alpha = (position.x || position.y) ? body.alpha : 0;
-        const x = (position?.x || 0);
-        const y = (position?.y || 0);
+        const { alpha, angle, color } = body;
+        const { x, y } = body.position;
         // Style design
         elem.style.color = color;
         elem.style.opacity = alpha;
-        elem.style.width = `${width}px`;
-        elem.style.height = `${height}px`;
         // Style position
         elem.style.top = `${body.height * -0.5}px`;
         elem.style.left = `${body.width * -0.5}px`;
@@ -68,31 +65,28 @@ export default function Shapes({
 
     // R E T U R N
 
-    return <div ref={renderRef} style={{
+    return <div style={{
         width: '100%',
         height: '100%',
 
         position: 'absolute',
         zIndex: zIndex
     }}>
-        {keyArray.map((key) => {
-            const body = shapeBodyMapRef.current.get(key);
-            if (!body) return <></>;
+        {[...shapeElemMap.entries()].map(([key, shape]) => {
             return <div
                 key={key}
-                ref={(elem) => {
-                    if (elem) shapeElemMapRef.current.set(key, elem);
-                    else shapeElemMapRef.current.delete(key);
-                }}
+                ref={shape.ref}
                 style={{
-                    opacity: 0,
+                    opacity: 1,
+                    width: shape.width,
+                    height: shape.height,
 
                     position: 'absolute',
-                    top: '-9999px',
-                    left: '-9999px',
+                    top: 100,
+                    left: 100
                 }}
             >
-                {body.image && <body.image />}
+                {shape.image && <shape.image />}
             </div>;
         })}
     </div>;

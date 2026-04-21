@@ -9,7 +9,6 @@
         rgba(225, 223, 217, 1),
         rgba(225, 223, 217, 0) 50%   
     );
-    height: 100dvh;
 
     position: relative;
 
@@ -19,6 +18,8 @@
 /* __banner */
 
 .home-feature__banner {
+    width: 100%;
+
     position: absolute;
     top: 48%;
     left: 50%;
@@ -30,14 +31,37 @@
     flex-direction: column;
 }
 
+/* __banner-head */
+
 .home-feature__banner-head {
     aspect-ratio: 68 / 33;
     width: 100%;
+
+    position: relative;
 }
 
 .home-feature__banner-head img {
     opacity: 0;
     width: 100%;
+}
+
+/* __banner-info */
+
+.home-feature__banner-info {
+    position: relative;
+}
+
+.home-feature__banner-info::before {
+    content: '';
+
+    background: var(--rule-color);
+    opacity: var(--rule-opacity);
+    width: 100%;
+    height: 1px;
+
+    position: absolute;
+    top: 0;
+    left: 0;
 }
 
 .home-feature__banner-info p {
@@ -72,12 +96,14 @@
     z-index: -1;
 }
 
-.home-feature__banner-menu ul {
+/* __banner-menu */
+
+ul.home-feature__banner-menu {
     display: flex;
     gap: var(--button-big-menu-gap);
 }
 
-.home-feature__banner-menu ul li:nth-child(2) {
+ul.home-feature__banner-menu li:nth-child(2) {
     --button-background: var(--color-gray2);
     --button-background-active: var(--color-gray2);
 }
@@ -90,25 +116,35 @@
     /* .home-feature */
 
     .home-feature {
-        min-height: 720px;
+        height: max(100vh, 720px);
     }
 
     /* __banner */
 
     .home-feature__banner {
-        width: clamp(480px, 60vw, 800px);
+        width: min(80vw, 800px);
     }
+
+    /* __banner-head */
 
     .home-feature__banner-head {
-        margin: 0 0 40px;
+        margin-bottom: 40px;
     }
 
+    /* __banner-info */
+
     .home-feature__banner-info {
-        margin: 30px 0;
+        padding-top: 30px;
     }
 
     .home-feature__banner-info p {
-        width: 500px;
+        width: 75%;
+    }
+
+    /* __banner-menu */
+
+    ul.home-feature__banner-menu {
+        margin-top: 30px;
     }
 
 }
@@ -118,22 +154,38 @@
 
 @media (max-width: 767px) {
 
+    /* .home-feature */
+
+    .home-feature {
+        height: max(100vh, 480px);
+    }
+
     /* __banner */
 
     .home-feature__banner {
         width: min(calc(100vw - 30px), max(80vw, 320px));
     }
 
+    /* __banner-head */
+
     .home-feature__banner-head {
-        margin: 0 0 20px;
+        margin-bottom: 20px;
     }
 
+    /* __banner-info */
+
     .home-feature__banner-info {
-        margin: 12px 0 20px;
+        padding-top: 10px;
     }
 
     .home-feature__banner-info p {
-        width: 270px;
+        width: 100%;
+    }
+
+    /* __banner-menu */
+
+    ul.home-feature__banner-menu {
+        margin-top: 20px;
     }
 
 }

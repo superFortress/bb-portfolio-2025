@@ -1,9 +1,3 @@
-/* I M P O R T
-* * * * * * */
-
-// Module
-import { createRef, useMemo } from 'react';
-
 /* E X P O R T
 * * * * * * */
 
@@ -13,63 +7,63 @@ export default function Titles({
     titleBodyMapRef = null,
     titleElemMap = new Map(),
     // Geometry
+    bannerFrame = {},
+    bannerPoint = {},
     zIndex = 0,
     // Matter
-    useUpdate = () => { }
+    useUpdate = null
 
 }) {
 
     // A S S I G N
 
-    // Reference
-    const refMap = useMemo(() => {
-        const map = new Map();
-        for (const key of titleElemMap.keys())
-            map.set(key, createRef());
-        return map;
-    }, [titleElemMap]);
+    // Variable
+    const banner = { ...bannerFrame, ...bannerPoint };
 
     // U P D A T E
 
-    // Update letter positioning
     useUpdate(() => {
         titleBodyMapRef.current.forEach((title) => {
-            if (!refMap.get(title.key)?.current) return;
-            const elem = refMap.get(title.key).current;
+            if (!titleElemMap.get(title.key)) return;
+            const elem = titleElemMap.get(title.key).ref.current;
+            const x = (title.position.x - banner.x) / banner.width * 100;
+            const y = (title.position.y - banner.y) / banner.height * 100;
             elem.style.backgroundColor = title.color;
-            elem.style.top = `${title.position.y}px`;
-            elem.style.left = `${title.position.x}px`;
+            elem.style.top = `${y}%`;
+            elem.style.left = `${x}%`;
         });
     });
 
     // R E T U R N
 
     return <div style={{
-        width: '100%',
-        height: '100%',
-        
+        width: banner.width,
+        height: banner.height,
+
         position: 'absolute',
+        top: banner.y,
+        left: '50%',
+        transform: 'translateX(-50%)',
         zIndex: zIndex
     }}>
-        {[...refMap.entries()].map(([key, ref]) => {
-            if (!titleElemMap.get(key)) return <></>;
-            const title = titleElemMap.get(key);
-            return <div key={key} ref={ref} style={{
+        {[...titleElemMap.values()].map((title) => (
+            <div key={title.key} ref={title.ref} style={{
                 backgroundColor: 'var(--color-gray5)',
-                maskImage: `url(${title.image})`,
+                maskImage: `url(${title.src})`,
                 maskRepeat: 'no-repeat',
                 maskSize: '100%',
-                width: `${title.width}px`,
-                height: `${title.height}px`,
+                width: `${title.width}%`,
+                height: `${title.height}%`,
 
                 position: 'absolute',
-                top: `${title.y}px`,
-                left: `${title.x}px`,
-                transform: ''
-                    + 'translate(-50%, -50%)'
-                    + `rotate(${title.angle}deg)`
-            }} />;
-        })}
+                top: `${title.y}%`,
+                left: `${title.x}%`,
+                transform: `
+                    translate(-50%, -50%)
+                    rotate(${title.angle}deg)
+                `
+            }} />
+        ))}
     </div>;
 
 }

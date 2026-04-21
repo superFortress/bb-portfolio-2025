@@ -96,7 +96,7 @@ export default function Portfolio() {
         className="portfolio"
         hash="portfolio"
         ref={scrollRef}
-        style={{ overflowY: 'scroll' }}
+        style={{ overflowY: client.onMobile ? 'scroll' : undefined }}
     >
 
         {/* Menu */}

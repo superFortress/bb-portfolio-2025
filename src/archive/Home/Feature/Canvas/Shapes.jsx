@@ -18,7 +18,8 @@ export default function Shapes({
     imageArray = [],
     shapeBodyMapRef = null,
     // Geometry
-    canvasFrame = {},
+    cameraFrame = {},
+    cameraPoint = {},
     client = {},
     // Matter
     engine = null
@@ -46,7 +47,7 @@ export default function Shapes({
         const spread = 0.75;
 
         // Properties
-        const canvas = { ...canvasFrame };
+        const camera = { ...cameraFrame, ...cameraPoint };
 
         // Create shape
         const createShape = () => {
@@ -57,9 +58,12 @@ export default function Shapes({
             const image = randomEntry(imageArray);
             const mirror = 1 - Math.round(Math.random()) * 2;
             const radius = scale * 30;
-            const x = Math.random() * (canvas.width * spread)
-                + canvas.width * ((1 - spread) * 0.5);
-            const y = canvas.height * -0.1;
+            const x = Math.random()
+                * camera.width * spread
+                + camera.width * (1 - spread) * 0.5
+                + camera.x; // add camera offset
+            const y = camera.height * -0.1
+                + camera.y; // add camera offset
 
             // Create shape
             const shape = Bodies.circle(
@@ -135,7 +139,7 @@ export default function Shapes({
         const timeout = creationTimeoutRef.current;
         if (timeout) clearTimeout(timeout);
         createShapes();
-    }, [canvasFrame, createShapes]);
+    }, [cameraFrame, createShapes]);
 
     // Remove shapes
     useEffect(() => () => {
