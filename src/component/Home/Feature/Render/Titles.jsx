@@ -24,8 +24,8 @@ export default function Titles({
 
     useUpdate(() => {
         titleBodyMapRef.current.forEach((title) => {
-            if (!titleElemMap.get(title.key)) return;
-            const elem = titleElemMap.get(title.key).ref.current;
+            const elem = titleElemMap.get(title.key)?.ref?.current;
+            if (!elem) return;
             const x = (title.position.x - banner.x) / banner.width * 100;
             const y = (title.position.y - banner.y) / banner.height * 100;
             elem.style.backgroundColor = title.color;
