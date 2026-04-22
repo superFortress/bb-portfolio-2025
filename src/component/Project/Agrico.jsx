@@ -11,9 +11,6 @@ import Gallery from '../../element/Gallery';
 import Image from '../../element/Image';
 import Quote from '../../element/Quote';
 
-// Function
-import useClient from '../../function/hook/useClient';
-
 // Module
 import styled from 'styled-components';
 
@@ -47,12 +44,6 @@ const StyledArticle = styled.article`
         padding-top: 0;
     }
 
-    /* production */
-
-    #project-production {
-        background: linear-gradient(180deg, #fff, #f4b9b8 75%);
-    }
-
 `;
 
 /* E X P O R T
@@ -61,9 +52,6 @@ const StyledArticle = styled.article`
 export default function Project({ about }) {
 
     // A S S I G N
-
-    // State
-    const client = useClient();
 
     // Variable
     const image = imageRoot.project.agrico;

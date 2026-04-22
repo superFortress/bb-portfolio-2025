@@ -36,6 +36,8 @@ export default {
 
             --logo-color: #000;
 
+            --page-background: #f6efe9;
+
             --text-color: #000;
         `,
         thumb: {
