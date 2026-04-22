@@ -53,6 +53,12 @@ export default function Loader() {
 
     // E F F E C T
 
+    // Load home images
+    useEffect(() => {
+        const pathArray = Object.values(image.home);
+        loadImages(pathArray);
+    }, []);
+
     // Load portfolio thumbnails
     useEffect(() => {
         const pathArray = Object.values(image.portfolio);
