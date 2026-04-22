@@ -23,7 +23,7 @@ const StyledArticle = styled.article`
     /* header */
 
     #project-header {
-        background: #52bbff;
+        background: #F9C200;
     }
 
     #project-header figure {
@@ -69,7 +69,7 @@ const StyledArticle = styled.article`
     }
 
     #project-design02 {
-        background: #bac0ba;
+        background: #52bbff;
     }
 
 `;
