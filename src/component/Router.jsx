@@ -85,7 +85,27 @@ export default function Router() {
                         key={entry.route}
                         path={entry.route}
                         element={
-                            <motion.main>
+                            <motion.main
+                                initial={{
+                                    opacity: 0
+                                }}
+                                animate={{
+                                    opacity: 1,
+                                    transition: {
+                                        delay: 0.75,
+                                        duration: 0.6,
+                                        ease: 'easeOut'
+                                    }
+                                }}
+                                exit={{
+                                    opacity: 0,
+                                    transition: {
+                                        delay: 0.25,
+                                        duration: 0.4,
+                                        ease: [0.5, 0.1, 0.8, 0.8]
+                                    }
+                                }}
+                            >
                                 <Suspense fallback={null}>
                                     <entry.child about={entry.about} />
                                 </Suspense>
